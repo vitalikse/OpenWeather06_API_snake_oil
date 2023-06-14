@@ -1,6 +1,7 @@
 import requests
 import json
 import jsonschema
+from jsonschema import Draft202012Validator
 from utils.schemas.schemas import SINGLE_USER_SCHEMA, SCHEMA, SCHEMA_LIST
 
 BASE_PAGE = 'https://reqres.in'
@@ -17,9 +18,14 @@ def validator(data, schema):
         print(e)
 
 
-# response = requests.get(f'{BASE_PAGE}{SINGLE_USER}')
-# print(response.json())
-# json_data = response.json()
+Draft202012Validator.check_schema(SINGLE_USER_SCHEMA)
+
+new_validator = Draft202012Validator(SINGLE_USER_SCHEMA)
+# new_validator.is_valid()
+
+response = requests.get(f'{BASE_PAGE}{SINGLE_USER}')
+print(response.json())
+json_data = response.json()
 # validator(json_data, SINGLE_USER_SCHEMA)
 
 # response = requests.get(f'{BASE_PAGE}{LIST_USERS}')
@@ -27,5 +33,7 @@ def validator(data, schema):
 # json_data = response.json()
 # validator(json_data, SCHEMA_LIST)
 
-validator(requests.get(f'{BASE_PAGE}{LIST_USERS}').json(), SCHEMA_LIST)
-validator(requests.get(f'{BASE_PAGE}{LIST_USERS}').json(), SCHEMA)
+# validator(requests.get(f'{BASE_PAGE}{SINGLE_USER}').json(), SINGLE_USER_SCHEMA)
+# validator(requests.get(f'{BASE_PAGE}{LIST_USERS}').json(), SCHEMA_LIST)
+# validator(requests.get(f'{BASE_PAGE}{LIST_USERS}').json(), SCHEMA)
+print(new_validator.is_valid(json_data))
