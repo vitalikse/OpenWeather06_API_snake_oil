@@ -1,7 +1,8 @@
+import jsonschema
 import requests
 import json
+import pytest
 from os.path import join, dirname
-import jsonschema
 from jsonschema import Draft202012Validator
 
 # End points
@@ -11,7 +12,9 @@ LIST_USERS = '/api/users?page=2'
 
 
 def validator(data, schema_file):
-    """ Checks whether the given data matches the schema """
+    """ Checks whether the given data matches the schema.
+        Also checks if schema is valid.
+    """
     if _load_json_schema(schema_file):
         schema = _load_json_schema(schema_file)
         try:
@@ -37,7 +40,10 @@ def _load_json_schema(filename):
         return False
 
 
-response = requests.get(f'{BASE_PAGE}{SINGLE_USER}')
-print(response.json())
-json_data = response.json()
-print(validator(json_data, 'st.json'))
+# Get and validate JSON response
+
+def test_json():
+    response = requests.get(f'{BASE_PAGE}{SINGLE_USER}')
+    json_data = response.json()
+    print(json_data)
+    assert validator(json_data, 'st.json'), 'API response is incorrect'
