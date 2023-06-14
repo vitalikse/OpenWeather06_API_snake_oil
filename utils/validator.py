@@ -15,13 +15,12 @@ def validator(data, schema_file):
     """ Checks whether the given data matches the schema.
         Also checks if schema is valid.
     """
-    if _load_json_schema(schema_file):
-        schema = _load_json_schema(schema_file)
-        try:
-            Draft202012Validator.check_schema(schema)
-            return Draft202012Validator(schema).is_valid(data)
-        except jsonschema.exceptions.SchemaError as e:
-            print("JSON Schema is incorrect:", e)
+    schema = _load_json_schema(schema_file)
+    try:
+        Draft202012Validator.check_schema(schema)
+        return Draft202012Validator(schema).is_valid(data)
+    except jsonschema.exceptions.SchemaError as e:
+        print("JSON Schema is incorrect:", e)
 
 
 def _load_json_schema(filename):
