@@ -1,6 +1,7 @@
 {
+  "$id": "single_user",
+  "title": "Schema for API 'single user' 'https://reqres.in/api/users/2'",
   "type": "object",
-  "title": "Single user Schema",
   "properties": {
     "data": {
       "type": "object",
