@@ -18,9 +18,10 @@ def validator(data, schema_file):
     schema = _load_json_schema(schema_file)
     try:
         Draft202012Validator.check_schema(schema)
-        return Draft202012Validator(schema).is_valid(data)
     except jsonschema.exceptions.SchemaError as e:
         print("JSON Schema is incorrect:", e)
+    else:
+        return Draft202012Validator(schema).is_valid(data)
 
 
 def _load_json_schema(filename):
