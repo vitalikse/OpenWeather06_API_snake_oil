@@ -40,10 +40,17 @@ def _load_json_schema(filename):
         return False
 
 
-# Get and validate JSON response
+# Tests
+class Tests:
 
-def test_json():
-    response = requests.get(f'{BASE_PAGE}{SINGLE_USER}')
-    json_data = response.json()
-    print(json_data)
-    assert validator(json_data, 'st.json'), 'API response is incorrect'
+    def test_single_user(self):
+        response = requests.get(f'{BASE_PAGE}{SINGLE_USER}')
+        json_data = response.json()
+        # print(json_data)
+        assert validator(json_data, 'single_user.json'), 'API response is incorrect'
+
+    def test_list_users(self):
+        response = requests.get(f'{BASE_PAGE}{LIST_USERS}')
+        json_data = response.json()
+        # print(json_data)
+        assert validator(json_data, 'list_users.json'), 'API response is incorrect'
