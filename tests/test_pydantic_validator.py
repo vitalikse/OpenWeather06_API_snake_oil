@@ -13,11 +13,13 @@ class TestsPydanticPositive:
 
     def test_single_user(self):
         response = requests.get(f'{ep.BASE_PAGE}{ep.SINGLE_USER}')
-        assert validator_pydantic(response.json(), m.SingleUser.Model), 'API response is incorrect'
+        json_data = response.json()
+        assert validator_pydantic(json_data, m.SingleUser.Model), 'API response is incorrect'
 
     def test_list_users(self):
         response = requests.get(f'{ep.BASE_PAGE}{ep.LIST_USERS}')
-        assert validator_pydantic(response.json(), m.ListUsers.Model), 'API response is incorrect'
+        json_data = response.json()
+        assert validator_pydantic(json_data, m.ListUsers.Model), 'API response is incorrect'
 
 
 @pytest.mark.positive_json
@@ -39,11 +41,13 @@ class TestsPydanticNegativeModel:
 
     def test_single_user(self):
         response = requests.get(f'{ep.BASE_PAGE}{ep.SINGLE_USER}')
-        assert validator_pydantic(response.json(), m.SingleUserBroken.Model), 'API response is incorrect'
+        json_data = response.json()
+        assert validator_pydantic(json_data, m.SingleUserBroken.Model), 'API response is incorrect'
 
     def test_list_users(self):
         response = requests.get(f'{ep.BASE_PAGE}{ep.LIST_USERS}')
-        assert validator_pydantic(response.json(), m.ListUsersBroken.Model), 'API response is incorrect'
+        json_data = response.json()
+        assert validator_pydantic(json_data, m.ListUsersBroken.Model), 'API response is incorrect'
 
 
 @pytest.mark.negative_json
