@@ -13,7 +13,7 @@
   "additionalProperties": false,
   "properties": {
     "page": {
-      "type": "integer"
+      "type": "string"
     },
     "per_page": {
       "type": "integer"
