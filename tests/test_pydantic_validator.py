@@ -3,7 +3,7 @@ import requests
 
 from utils.file_handler import read_from_json_file
 from utils.validator_pydantic import validator_pydantic
-from utils.models.models import Models as m
+from utils.models.pydantic_models import Models as m
 from data.endpoints import EndPoints as ep
 
 
